@@ -1,5 +1,7 @@
-import {useRouteMatch, BrowserRouter, Route, Switch, Redirect} from "react-router-dom"
+import {useRouteMatch, Route, Switch, Redirect} from "react-router-dom"
 import cn from 'classnames'
+
+// import database from './service/firebase'
 
 import Footer from './components/Footer';
 import MenuHeader from './components/MenuHeader';
@@ -11,6 +13,12 @@ import ContactPage from './routes/Contact';
 
 import s from './style.module.css';
 
+
+
+
+// database.ref('pokemons').once('value', (snapshot) => {
+//   console.log('####: snapshot', snapshot.val());
+// })
 
 const App = () => {
   const match = useRouteMatch('/');
