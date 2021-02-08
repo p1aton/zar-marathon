@@ -3,12 +3,12 @@ import s from './style.module.css'
 import CardBackSide from './assets/card-back-side.jpg'
 import cn from 'classnames'
 
-const PokemonCard = ({name, img, id, type, values}) => {
-    const [isActive, setActive] = useState(false);
-
+const PokemonCard = ({type, values, id, img, name, handleClickCard, isActive}) => {
     const handleClick = () => {
-        setActive(!isActive);
+        handleClickCard(id)
     }
+
+    
     return (
         <div className={s.root} onClick = {handleClick}>
             <div className={cn(s.pokemonCard, {[s.active]: isActive})}>
@@ -16,10 +16,10 @@ const PokemonCard = ({name, img, id, type, values}) => {
                     <div className={`${s.wrap} ${s.front}`}>
                         <div className={`${s.pokemon} ${s[type]}`}>
                             <div className={s.values}>
-                                <div className={`${s.count} ${s.top}`}>{values.top} </div>
-                                <div className={`${s.count} ${s.right}`}>{values.right} </div>
-                                <div className={`${s.count} ${s.bottom}`}>{values.bottom} </div>
-                                <div className={`${s.count} ${s.left}`}>{values.left} </div>
+                            <div className={cn(s.count, s.top)}>{values.top}</div>
+                                <div className={cn(s.count, s.right)}>{values.right}</div>
+                                <div className={cn(s.count, s.bottom)}>{values.bottom}</div>
+                                <div className={cn(s.count, s.left)}>{values.left}</div>
                             </div>
                             <div className={s.imgContainer}>
                                 <img src={img} alt={name} />
