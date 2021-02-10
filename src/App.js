@@ -1,7 +1,7 @@
-import {useRouteMatch, Route, Switch, Redirect} from "react-router-dom"
+import {useRouteMatch, Route, Switch, Redirect, useLocation} from "react-router-dom"
 import cn from 'classnames'
 
-// import database from './service/firebase'
+import Firebase from './service/firebase'
 
 import Footer from './components/Footer';
 import MenuHeader from './components/MenuHeader';
@@ -12,27 +12,29 @@ import AboutPage from './routes/About';
 import ContactPage from './routes/Contact';
 
 import s from './style.module.css';
+import { FireBaseContext } from "./context/firebaseContext";
 
 
 
 
-// database.ref('pokemons').once('value', (snapshot) => {
-//   console.log('####: snapshot', snapshot.val());
-// })
+
 
 const App = () => {
-  const match = useRouteMatch('/');
-  console.log('####: match', match)
+  const location = useLocation();
+  const isPadding = location.pathname === '/'|| location.pathname==='/game/board';
+
+
   return (
+    <FireBaseContext.Provider value={new Firebase()}>
     <Switch>
             <Route path="/404" render={() => (
         <h1>404 Not Found</h1>
       )} />
       <Route>
         <>
-          <MenuHeader bgActive={!match.isExact}/>
+          <MenuHeader bgActive={!isPadding}/>
           <div className={cn(s.wrap, {
-            [s.isHomePage]: match.isExact
+            [s.isHomePage]: isPadding
           })}>
           <Switch>
             <Route path="/" exact component={HomePage} />
@@ -49,6 +51,7 @@ const App = () => {
         </>
       </Route>
     </Switch>
+    </FireBaseContext.Provider> 
   )
 
 }
