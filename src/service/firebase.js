@@ -29,9 +29,9 @@ const firebaseConfig = {
       })
     }
 
-    // offPokemonSocet = () => {
-    //   this.database.ref('pokemons').off();
-    // }
+    offPokemonSocet = () => {
+      this.database.ref('pokemons').off();
+    }
 
     getPokemonsOnce = async () => {
       return await this.database.ref('pokemons').once('value').then(snapshot => snapshot.val());
@@ -41,10 +41,10 @@ const firebaseConfig = {
       this.database.ref(`pokemons/${key}`).set(pokemon);
     }
 
-    addPokemon = (data, cb) => {
-      const newKey = this.database.ref().child('pokemons').push().key;
-      this.database.ref('pokemons/' + newKey).set(data);
-    }
+    addPokemon = (pokemon, cb) => {
+      const key = this.database.ref().child('pokemons').push().key;
+      this.database.ref(`pokemons/${key}`).set(pokemon);
+    };
 
     
 
