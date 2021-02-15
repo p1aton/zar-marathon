@@ -10,17 +10,26 @@ const FinishPage = () => {
   const history = useHistory();
   const firebase = useContext(FireBaseContext);
   const { cardsInGame, gameResult } = useContext(PokemonContext);
+  console.log("🚀 ~ file: index.js ~ line 13 ~ FinishPage ~ cardsInGame", cardsInGame)
+  console.log("🚀 ~ file: index.js ~ line 13 ~ FinishPage ~ gameResult", gameResult)
+  
   const [isPokemonAdded, setPokemonAdded] = useState(false);
 
 
-  if (!gameResult) {
+  if (gameResult !== "WIN") {
     history.replace('/game');
   }
+
 
   const handleEndGameClick = () => {
     history.push('/game');
   };
 
+
+/**
+ * 
+ * Не отправляет в базу покемона
+ */
   const handleAddNewPokemon = async (card) => {
     if (!isPokemonAdded) {
       setPokemonAdded(true);
@@ -28,6 +37,15 @@ const FinishPage = () => {
 
     }
   };
+
+
+  // const handleAddNewPokemon = () => {
+  //   if (isPokemonAdded) {
+  //     firebase.addPokemon(setPokemonAdded.card, true);
+  //   }}
+
+    console.log("🚀 ~ file: index.js ~ line 35 ~ handleAddNewPokemon ~ isPokemonAdded", isPokemonAdded)
+
 
   return(
     <>
@@ -65,9 +83,9 @@ const FinishPage = () => {
               values={card.values}
               img={card.img}
               isActive
-              onCardClick={async () => {
+              onCardClick={ () => {
                 if (gameResult === 'WIN' && !isPokemonAdded) {
-                  await handleAddNewPokemon(card)
+                  handleAddNewPokemon(card)
                 }
               }}
             />
@@ -79,3 +97,4 @@ const FinishPage = () => {
 };
 
 export default FinishPage;
+

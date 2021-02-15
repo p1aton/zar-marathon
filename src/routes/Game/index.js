@@ -19,6 +19,7 @@ const GamePage = () => {
   const [gameResult, setGameResult] = useState(null);
   const [cardsInGame, setCardsInGame] = useState({ player1Cards: [], player2Cards: []});
 
+  
   useEffect(() => {
     const unlisten = history.listen(({ pathname }) => {
       if (pathname === '/game') {
