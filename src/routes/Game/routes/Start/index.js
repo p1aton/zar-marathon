@@ -14,7 +14,7 @@ const StartPage = () => {
     const pokemonsContext = useContext(PokemonContext)
     const history = useHistory();
     const [pokemons, setPokemons] = useState({});
-    console.log('####: Firebase', firebase)
+    // console.log('####: Firebase', firebase)
 
 
     useEffect(() => {
@@ -22,8 +22,8 @@ const StartPage = () => {
         setPokemons(pokemons);
         });
         
-        // return () => firebase.offPokemonSocet();
-    }, []);
+        return () => firebase.offPokemonSocet();
+    }, [firebase]);
     
 
 

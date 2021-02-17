@@ -1,4 +1,4 @@
-import {useRouteMatch, Route, Switch, Redirect, useLocation} from "react-router-dom"
+import { Route, Switch, Redirect, useLocation} from "react-router-dom"
 import cn from 'classnames'
 
 import Firebase from './service/firebase'
@@ -13,6 +13,7 @@ import ContactPage from './routes/Contact';
 
 import s from './style.module.css';
 import { FireBaseContext } from "./context/firebaseContext";
+import FinishPage from "./routes/Game/routes/Finish";
 
 
 
@@ -41,7 +42,8 @@ const App = () => {
             <Route path="/home" component={HomePage} />
             <Route path="/game" component={GamePage} />
             <Route path="/about" component={AboutPage} />
-              <Route path="/contact" component={ContactPage} />
+            <Route path="/contact" component={ContactPage} />
+            <Route path="/finish" component={FinishPage} />
             <Route render={() => (
               <Redirect to="404"/>
             )} />

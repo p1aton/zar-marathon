@@ -1,5 +1,5 @@
-import {useRouteMatch, Route, Switch} from "react-router-dom";
-import { useState } from 'react';
+import { useRouteMatch, Route, Switch, useHistory  } from "react-router-dom";
+import { useState, useEffect  } from 'react';
 
 
 import StartPage from './routes/Start/index.js';
@@ -13,13 +13,34 @@ import { PokemonContext } from "../../context/pokemonContext.js";
 
 const GamePage = () => {
   const [selectedPokemons, setSelectedPokemons] = useState({});
-  console.log('####: selectedPokemons', selectedPokemons)
+  // console.log('####: selectedPokemons', selectedPokemons)
   const match = useRouteMatch();
+  const history = useHistory();
+  const [gameResult, setGameResult] = useState(null);
+  const [cardsInGame, setCardsInGame] = useState({ player1Cards: [], player2Cards: []});
+
+  
+  useEffect(() => {
+    const unlisten = history.listen(({ pathname }) => {
+      if (pathname === '/game') {
+        setSelectedPokemons({});
+        setGameResult(null);
+        setCardsInGame({ player1Cards: [], player2Cards: []});
+      }
+    });
+
+    return () => {
+      unlisten();
+    }
+  }, [history]);  
+
+
+
 
   const handleSelectedPokemons = (key, pokemon) => {
     setSelectedPokemons(prevState => {
-      if(prevState[key]) {
-        const copyState = {...prevState};
+      if (prevState[key]) {
+        const copyState = { ...prevState };
         delete copyState[key];
 
         return copyState;
@@ -32,10 +53,30 @@ const GamePage = () => {
     })
   }
 
+  //   const clearPokemonContext = () => {
+  //     setSelectedPokemons({});
+  //     setGameResult([]);
+  // }
+
+  const handlePlayersCardsFetched = (player1Cards, player2Cards) => {
+    setCardsInGame({ player1Cards: player1Cards, player2Cards: player2Cards });
+  };
+
+  const handleGameFinished = (result) => {
+    setGameResult(result);
+    history.push('/game/finish');
+  };
+
+
   return (
     <PokemonContext.Provider value={{
       pokemons: selectedPokemons,
-      onSelectedPokemons: handleSelectedPokemons
+      cardsInGame,
+      gameResult,
+      onSelectedPokemons: handleSelectedPokemons,
+      onPlayersCardsFetched: handlePlayersCardsFetched,
+      onGameFinished: handleGameFinished
+
     }}>
       <Switch>
         <Route path={`${match.path}/`} exact component={StartPage} />

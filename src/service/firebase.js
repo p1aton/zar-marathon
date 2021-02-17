@@ -29,9 +29,9 @@ const firebaseConfig = {
       })
     }
 
-    // offPokemonSocet = () => {
-    //   this.database.ref('pokemons').off();
-    // }
+    offPokemonSocet = () => {
+      this.database.ref('pokemons').off();
+    }
 
     getPokemonsOnce = async () => {
       return await this.database.ref('pokemons').once('value').then(snapshot => snapshot.val());
