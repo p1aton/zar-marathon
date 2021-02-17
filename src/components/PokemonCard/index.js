@@ -1,6 +1,6 @@
-import {useState} from 'react'
+// import {useState} from 'react'
 import s from './style.module.css'
-import CardBackSide from './assets/card-back-side.jpg'
+// import CardBackSide from './assets/card-back-side.jpg'
 import cn from 'classnames'
 
 const PokemonCard = ({type, values, id, img, name, onClickCard, isActive, minimize, className, isSelected, possession}) => {

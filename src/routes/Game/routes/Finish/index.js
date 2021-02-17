@@ -14,6 +14,7 @@ const FinishPage = () => {
   console.log("🚀 ~ file: index.js ~ line 13 ~ FinishPage ~ gameResult", gameResult)
   
   const [isPokemonAdded, setPokemonAdded] = useState(false);
+  console.log("🚀 ~ file: index.js ~ line 17 ~ FinishPage ~ isPokemonAdded", isPokemonAdded)
 
 
   if (gameResult !== "WIN") {
@@ -31,20 +32,12 @@ const FinishPage = () => {
  * Не отправляет в базу покемона
  */
   const handleAddNewPokemon = async (card) => {
-    if (!isPokemonAdded) {
+    if (gameResult === 'WIN') {
       setPokemonAdded(true);
-      await firebase.addPokemon(card);
+      await firebase.addPokemon(card, () => console.log( 'new pokemon added' ));
 
     }
   };
-
-
-  // const handleAddNewPokemon = () => {
-  //   if (isPokemonAdded) {
-  //     firebase.addPokemon(setPokemonAdded.card, true);
-  //   }}
-
-    console.log("🚀 ~ file: index.js ~ line 35 ~ handleAddNewPokemon ~ isPokemonAdded", isPokemonAdded)
 
 
   return(
