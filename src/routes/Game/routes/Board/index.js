@@ -12,17 +12,17 @@ const counterWin = (board, player1, player2) => {
     let player2Count = player2.length;
 
 
-board.forEach(item => {
-    if (item.card.possession === 'red') {
-        player2Count++;
-    }
+    board.forEach(item => {
+        if (item.card.possession === 'red') {
+            player2Count++;
+        }
 
-    if (item.card.possession === 'blue') {
-        player1Count++;
-    }
-}); 
+        if (item.card.possession === 'blue') {
+            player1Count++;
+        }
+    });
 
-return [player1Count, player2Count]
+    return [player1Count, player2Count]
 
 }
 
@@ -44,36 +44,38 @@ const BoardPage = () => {
         history.replace('/game');
     }
 
-    useEffect(async () => {
-        const BoardResponce = await fetch('https://reactmarathon-api.netlify.app/api/board');
-        const boardRequest = await BoardResponce.json();
+    useEffect(() => {
+        async function _fetchData() {
+            const boardResponse = await fetch('https://reactmarathon-api.netlify.app/api/board');
+            const boardRequest = await boardResponse.json();
 
-        setBoard(boardRequest.data);
+            setBoard(boardRequest.data);
 
-        const player2Response = await fetch('https://reactmarathon-api.netlify.app/api/create-player');
-        const player2Request = await player2Response.json();
+            const player2Response = await fetch('https://reactmarathon-api.netlify.app/api/create-player');
+            const player2Request = await player2Response.json();
 
-        onPlayersCardsFetched(player1, player2Request.data);
+            onPlayersCardsFetched(player1, player2Request.data);
 
-        setPlayer2(() => {
-            return player2Request.data.map(item => ({
-                ...item,
-                possession: 'red',
-            }))
-        });
+            setPlayer2(() => {
+                return player2Request.data.map(pokemon => ({
+                    ...pokemon,
+                    possession: 'red',
+                }))
+            });
+        }
 
-
+        _fetchData();
     }, []);
 
 
     if (Object.keys(pokemons).length === 0) {
         history.replace('/game');
-      }
-    
-      const _gameFinished = (result) => {
+    }
+
+    const _gameFinished = (result) => {
         onGameFinished(result);
         alert(result);
-      };
+    };
 
     const handleClickBoardPlate = async (position) => {
         if (choiceCard) {
@@ -95,7 +97,7 @@ const BoardPage = () => {
 
             const request = await res.json();
             setBoard(request.data);
-            
+
 
             if (choiceCard.player === 1) {
                 setPlayer1(prevState => prevState.filter(item => item.id !== choiceCard.id));
@@ -107,7 +109,7 @@ const BoardPage = () => {
 
             // setBoard(request.data);
             setSteps(prevState => {
-                const count = prevState +1;
+                const count = prevState + 1;
                 return count;
             })
 
@@ -115,7 +117,7 @@ const BoardPage = () => {
     }
 
     useEffect(() => {
-        if (steps === 9) {  
+        if (steps === 9) {
             const [count1, count2] = counterWin(board, player1, player2);
 
             if (count1 > count2) {

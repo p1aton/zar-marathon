@@ -8,12 +8,14 @@ import Button from '../../../../components/UI/Controls/Button/index.js';
 
 const FinishPage = () => {
   const history = useHistory();
+  
   const firebase = useContext(FireBaseContext);
   const { cardsInGame, gameResult } = useContext(PokemonContext);
   console.log("🚀 ~ file: index.js ~ line 13 ~ FinishPage ~ cardsInGame", cardsInGame)
   console.log("🚀 ~ file: index.js ~ line 13 ~ FinishPage ~ gameResult", gameResult)
   
   const [isPokemonAdded, setPokemonAdded] = useState(false);
+  console.log("🚀 ~ file: index.js ~ line 18 ~ FinishPage ~ setPokemonAdded", setPokemonAdded)
   console.log("🚀 ~ file: index.js ~ line 17 ~ FinishPage ~ isPokemonAdded", isPokemonAdded)
 
 
@@ -32,12 +34,13 @@ const FinishPage = () => {
  * Не отправляет в базу покемона
  */
   const handleAddNewPokemon = async (card) => {
-    if (gameResult === 'WIN') {
+    if (gameResult === 'WIN') { 
       setPokemonAdded(true);
       await firebase.addPokemon(card, () => console.log( 'new pokemon added' ));
-
     }
   };
+
+  
 
 
   return(
@@ -77,7 +80,7 @@ const FinishPage = () => {
               img={card.img}
               isActive
               onCardClick={ () => {
-                if (gameResult === 'WIN' && !isPokemonAdded) {
+                if (gameResult === 'WIN') {
                   handleAddNewPokemon(card)
                 }
               }}
@@ -90,4 +93,3 @@ const FinishPage = () => {
 };
 
 export default FinishPage;
-
