@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import Layout from '../../../../components/Layout/index.js';
 import PokemonCard from '../../../../components/PokemonCard/index.js';
 import { FireBaseContext } from '../../../../context/firebaseContext.js';
 import { PokemonContext } from '../../../../context/pokemonContext.js';
@@ -14,7 +13,7 @@ const StartPage = () => {
     const pokemonsContext = useContext(PokemonContext)
     const history = useHistory();
     const [pokemons, setPokemons] = useState({});
-    // console.log('####: Firebase', firebase)
+    
 
 
     useEffect(() => {
@@ -28,18 +27,16 @@ const StartPage = () => {
 
 
     const handleChangeSelected = (key) => {
-      const pokemon = {...pokemons[key]};
+      const pokemon = { ...pokemons[key] };
       pokemonsContext.onSelectedPokemons(key, pokemon);
-
-
       setPokemons(prevState => ({
         ...prevState,
         [key]: {
           ...prevState[key],
           selected: !prevState[key].selected,
         }
-      }))
-
+      }
+      ))
     };
 
     const handleStartGameClick = () => {
@@ -50,13 +47,16 @@ const StartPage = () => {
    
   return (
     <>
-      <Layout id={2}  title='Layout 2 title' descr='description' colorBg='#777' >
-      <button className={s.button} 
+      <button 
+      className={s.button} 
       onClick={handleStartGameClick}
-      disabled={Object.keys(pokemonsContext.pokemons).length < 5}>Start Game</button>
+      disabled={Object.keys(pokemonsContext.pokemons).length < 5}
+      >Start Game
+      </button>
       <div className={s.flex}>
           {
-            Object.entries(pokemons).map(([key, {name, img, id, type, values, selected}]) => <PokemonCard 
+            Object.entries(pokemons).map(([key, {name, img, id, type, values, selected}]) => 
+            <PokemonCard 
             className={s.card}
             isActive={true}
             key={key}
@@ -67,11 +67,11 @@ const StartPage = () => {
             values={values}
             isSelected={selected}
             onClickCard={() => {
-              if (Object.keys(pokemonsContext.pokemons).length < 5 || selected) { handleChangeSelected(key) }
+              if (Object.keys(pokemonsContext.pokemons).length < 5 || selected) { 
+                  handleChangeSelected(key) }
           }}
           />)}
         </div>
-      </Layout>
     </>
   );
 };

@@ -3,7 +3,19 @@ import s from './style.module.css'
 // import CardBackSide from './assets/card-back-side.jpg'
 import cn from 'classnames'
 
-const PokemonCard = ({type, values, id, img, name, onClickCard, isActive, minimize, className, isSelected, possession}) => {
+const PokemonCard = ({
+    
+    type, 
+    values, 
+    id, 
+    img, 
+    name, 
+    onClickCard, 
+    isActive, 
+    minimize, 
+    className, 
+    isSelected, 
+    possession}) => {
     const handleClick = () => {
         onClickCard && onClickCard(id)
 

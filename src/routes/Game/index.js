@@ -13,9 +13,11 @@ import { PokemonContext } from "../../context/pokemonContext.js";
 
 const GamePage = () => {
   const [selectedPokemons, setSelectedPokemons] = useState({});
-  // console.log('####: selectedPokemons', selectedPokemons)
+ 
+  
   const match = useRouteMatch();
   const history = useHistory();
+  
   const [gameResult, setGameResult] = useState(null);
   const [cardsInGame, setCardsInGame] = useState({ player1Cards: [], player2Cards: []});
 
