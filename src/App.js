@@ -14,6 +14,7 @@ import ContactPage from './routes/Contact';
 import s from './style.module.css';
 import { FireBaseContext } from "./context/firebaseContext";
 import FinishPage from "./routes/Game/routes/Finish";
+import FirebaseClass from "./service/firebase";
 
 
 
@@ -26,7 +27,7 @@ const App = () => {
 
 
   return (
-    <FireBaseContext.Provider value={new Firebase()}>
+    <FireBaseContext.Provider value={FirebaseClass}>
     <Switch>
             <Route path="/404" render={() => (
         <h1>404 Not Found</h1>

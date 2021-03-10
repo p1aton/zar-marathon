@@ -11,16 +11,9 @@ const FinishPage = () => {
   
   const firebase = useContext(FireBaseContext);
   const { cardsInGame, gameResult } = useContext(PokemonContext);
-  console.log("🚀 ~ file: index.js ~ line 13 ~ FinishPage ~ cardsInGame", cardsInGame)
-  console.log("🚀 ~ file: index.js ~ line 13 ~ FinishPage ~ gameResult", gameResult)
   
-  // const [isPokemonAdded, setPokemonAdded] = useState(false);
-  // console.log("🚀 ~ file: index.js ~ line 18 ~ FinishPage ~ setPokemonAdded", setPokemonAdded)
-  // console.log("🚀 ~ file: index.js ~ line 17 ~ FinishPage ~ isPokemonAdded", isPokemonAdded)
 
   const [selectedCard, setSelectedCard] = useState(null);
-  console.log("🚀 ~ file: index.js ~ line 22 ~ FinishPage ~ setSelectedCard", setSelectedCard)
-  console.log("🚀 ~ file: index.js ~ line 22 ~ FinishPage ~ selectedCard", selectedCard)
 
 
   const handleClickCard = (card) => () => {

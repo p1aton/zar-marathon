@@ -50,7 +50,7 @@ const firebaseConfig = {
 
   }
   
+  const FirebaseClass = new Firebase();
 
-
-  export default Firebase;
+  export default FirebaseClass;
 
