@@ -6,6 +6,7 @@ import bgImg2 from './../../assets/bg2.jpg';
 import PokemonCard from '../../components/PokemonCard';
 import s from './style.module.css';
 import MenuHeader from '../../components/MenuHeader/index.js';
+import { useSelector } from 'react-redux';
 
 const POKEMONS = [
   {
@@ -144,6 +145,7 @@ const POKEMONS = [
 
 
 const HomePage = ({onChangePage}) => {
+
   const handleClickButton = (page) => {
       onChangePage && onChangePage(page);
   }

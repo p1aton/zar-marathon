@@ -2,6 +2,8 @@ import {useHistory} from 'react-router-dom';
 import s from './style.module.css';
 
 const Header = ({ title, descr, onClickButton }) => {
+    
+    
     const history = useHistory();
     const handleClick = () => {
         history.push('/game');
