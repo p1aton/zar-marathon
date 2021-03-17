@@ -1,12 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import s from './style.module.css';
 
 
 
 
-const LoginForm = ({ onSubmit }) => {
+const LoginForm = ({ onSubmit, isResetField = false }) => {
 
-  const [email, setEmail] = useState('some@mail.ru');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLogin, setLogin] = useState(true);
+
+  useEffect(() => {
+    setEmail('');
+    setPassword('');
+  }, [isResetField]);
 
 
 
@@ -15,6 +22,7 @@ const LoginForm = ({ onSubmit }) => {
 
       
     onSubmit && onSubmit({
+      type: isLogin ? 'login': 'signup',
       email,
       password
     });
@@ -39,9 +47,18 @@ const LoginForm = ({ onSubmit }) => {
           name="password" 
           onChange={(e) => setPassword(e.target.value)} />
       </div>
-      <button>
-        Login
-      </button>
+      <div className={s.flex}>
+        <button 
+          className={s.button}>
+          {isLogin ? 'Login': 'Signup'}
+        </button>
+        <div 
+          className={s.link}
+          onClick={() => setLogin(!isLogin)}
+          >
+          {isLogin ? 'Register' : 'Login' }
+        </div>
+      </div>
     </form>
   )
 };

@@ -16,6 +16,9 @@ import FirebaseClass from "./service/firebase";
 import {NotificationContainer} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 import PrivateRoute from "./components/PrivateRoute";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getUserAsync } from "./Store/user";
 
 
 
@@ -25,6 +28,12 @@ import PrivateRoute from "./components/PrivateRoute";
 const App = () => {
   const location = useLocation();
   const isPadding = location.pathname === '/'|| location.pathname==='/game/board';
+  const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    dispatch(getUserAsync());
+  }, [dispatch]);
 
 
   return (
